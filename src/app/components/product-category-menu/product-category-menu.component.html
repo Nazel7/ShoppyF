@@ -1,0 +1,7 @@
+<ul class="list-unstyled navbar-list">
+
+  <li *ngFor="let category of productCategory">
+      <a routerLink="/category/{{category.id}}" routerLinkActive="active-link">{{category.categoryName}}</a>
+
+  </li>
+</ul>

@@ -1,0 +1,72 @@
+<div class="main-content">
+  <div class="section-content section-content-p30">
+    <div class="container-fluid">
+      <div class="row">
+        <div *ngFor="let product of products" class="col-md-3">
+          <div class="product-box">
+            <div>
+              <a routerLink="/products/{{product.id}}">
+                <img src="{{product.imageUrl}}" class="img-responsive">
+              </a>
+
+              <a routerLink="/products/{{product.id}}">
+              <h1>{{product.name}}</h1>
+              </a>
+
+              <div class="price">
+                {{product.unitPrice | currency: 'USD'}}
+                <div>
+                  <a href="#" class="primary-btn">Add to cart</a>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div *ngIf="products?.length == 0" class="alert alert-warning col-md-12" role="alert">
+        Product not found....
+        </div>
+      </div>
+      <!--pagination start-->
+      <div class="footer-pagination">
+        <div class="row">
+          <div class="col-md-6"></div>
+
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-9" style="padding-left: 5%">
+
+                <ngb-pagination [(page)]="pageNo"
+                                 [pageSize]="pageSize"
+                                  [collectionSize]="totalElements"
+                                  [maxSize]="5"
+                                  [boundaryLinks]="true"
+                                  (pageChange)="listOfProduct()">
+
+
+                </ngb-pagination>
+              </div>
+              <div class="col-md-3 mt-2" style="text-align: right;">
+                <span class="mr-1" style="width: 5%">Page Size</span>
+                <span>
+                    <select (change)="updatePageSize($event.target.value)">
+                  <option selected>5</option>
+                  <option>10</option>
+                  <option>20</option>
+                  <option >50</option>
+                </select>
+                </span>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--pagination end-->
+    </div>
+  </div>
+</div>
