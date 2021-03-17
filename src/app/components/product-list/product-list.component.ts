@@ -20,6 +20,8 @@ export class ProductListComponent implements OnInit {
    pageSize: number=5;
    totalElements: number= 0;
 
+   previuosKeyWord: String= null;
+
 
 
   constructor(private productService: ProductService,
@@ -78,23 +80,29 @@ export class ProductListComponent implements OnInit {
       this.pageSize= data.page.size;
       this.totalElements= data.page.totalElements;
     }
-  );
+    );
 }
 
 
   handleSearchResult() {
+
     const keyWord= this.route.snapshot.paramMap.get("keyword")
+
+    if(this.previuosKeyWord != keyWord){
+      this.pageNo= 1;
+    }
+
+    this.previuosKeyWord= keyWord;
 
     this.productService.getSearchResultPaginate(this.pageNo -1,
                                                  this.pageSize,
                                                   keyWord).subscribe(
-
-      data => {
-       this.products= data._embedded.products;
-       this.pageNo= data.page.number +1;
-       this.pageSize= data.page.size;
-       this.totalElements= data.page.totalElements;
-      }
+    data => {
+      this.products= data._embedded.products;
+      this.pageNo= data.page.number +1;
+      this.pageSize= data.page.size;
+      this.totalElements= data.page.totalElements;
+    }
     );
   }
 
@@ -103,5 +111,14 @@ export class ProductListComponent implements OnInit {
     this.pageSize= pageSize;
     this.pageNo= 1;
     this.listOfProduct()
+  }
+
+  processSearchProduct(){
+    return data => {
+      this.products= data._embedded.products;
+      this.pageNo= data.page.number +1;
+      this.pageSize= data.page.size;
+      this.totalElements= data.page.totalElements;
+    };
   }
 }

@@ -49,9 +49,9 @@ private baseCategotyURL= 'http://localhost:8080/api/product-category';
   getSearchResultPaginate(pageNo: number,
                   pageSize: number,
                   keyWord: string): Observable<GetResponse>{
-    const searchByNameUrl= `${this.baseURl}/search/findByNameContaining?name=${keyWord}&${pageNo}&${pageSize}`;
+    const searchByNameUrlPaginate= `${this.baseURl}/search/findByNameContaining?name=${keyWord}&page=${pageNo}&size=${pageSize}`;
 
-    return this.httpClient.get<GetResponse>(searchByNameUrl);
+    return this.httpClient.get<GetResponse>(searchByNameUrlPaginate);
   }
 
 
